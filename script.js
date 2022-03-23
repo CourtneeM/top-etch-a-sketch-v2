@@ -34,11 +34,7 @@ function generateGrid(gridSize, color) {
 }
 
 function deleteGrid() {
-  const gridContainer = document.querySelector('#grid-container');
-
-  while (gridContainer.firstChild) {
-    gridContainer.removeChild(gridContainer.firstChild);
-  }
+  document.querySelector('body').removeChild(document.querySelector('#grid-container'));
 }
 
 function resetGrid() {
@@ -47,17 +43,57 @@ function resetGrid() {
 }
 
 function generateButtons() {
+  const btnsContainer = document.createElement('div');
   const blackColorBtn = document.createElement('button');
   const randomColorBtn = document.createElement('button');
   const grayscaleColorBtn = document.createElement('button');
   const gridSizeBtn = document.createElement('button');
   const resetGridBtn = document.createElement('button');
 
+  btnsContainer.id = 'btns-container';
   blackColorBtn.id = 'black-color-btn';
   randomColorBtn.id = 'random-color-btn';
   grayscaleColorBtn.id = 'grayscale-color-btn';
   gridSizeBtn.id = 'grid-size-btn';
   resetGridBtn.id = 'reset-grid-btn';
+
+  blackColorBtn.textContent = 'Black'
+  randomColorBtn.textContent = 'Random'
+  grayscaleColorBtn.textContent = 'Grayscale'
+  gridSizeBtn.textContent = 'Grid Size'
+  resetGridBtn.textContent = 'Reset'
+
+  blackColorBtn.addEventListener('click', () => {
+    // new color is black
+  });
+
+  randomColorBtn.addEventListener('click', () => {
+    // new color is random
+  });
+
+  grayscaleColorBtn.addEventListener('click', () => {
+    // new color is grayscale
+  });
+
+  gridSizeBtn.addEventListener('click', () => {
+    let newGridSize = prompt('How large is the new grid? Input a number between 1 and 100');
+
+    while (!Number(newGridSize) < 100 && !Number(newGridSize) > 0) { 
+      newGridSize = prompt('Please enter a number between 1 and 100');
+    }
+
+    deleteGrid();
+    generateGrid(newGridSize, 'black');
+  });
+
+  resetGridBtn.addEventListener('click', () => resetGrid());
+
+  [blackColorBtn, randomColorBtn, grayscaleColorBtn, gridSizeBtn, resetGridBtn].forEach(btn => {
+    btnsContainer.appendChild(btn);
+  });
+
+  document.querySelector('body').appendChild(btnsContainer);
 }
 
+generateButtons();
 generateGrid(16, 'random');
