@@ -64,15 +64,27 @@ function generateButtons() {
   resetGridBtn.textContent = 'Reset'
 
   blackColorBtn.addEventListener('click', () => {
-    // new color is black
+    [...document.querySelectorAll('.grid-square')].forEach(gridSquare => {
+      gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = '#000');
+    });
   });
-
+  
   randomColorBtn.addEventListener('click', () => {
-    // new color is random
-  });
+    function randomColor() {
+      const generateRandomColor = () => Math.floor(Math.random() * 256);
+      
+      return `rgb(${generateRandomColor()}, ${generateRandomColor()}, ${generateRandomColor()})`
+    }
 
+    [...document.querySelectorAll('.grid-square')].forEach(gridSquare => {
+      gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = randomColor());
+    });
+  });
+  
   grayscaleColorBtn.addEventListener('click', () => {
-    // new color is grayscale
+    [...document.querySelectorAll('.grid-square')].forEach(gridSquare => {
+      gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = 'gray');
+    });
   });
 
   gridSizeBtn.addEventListener('click', () => {
