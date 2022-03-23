@@ -1,10 +1,6 @@
-function generateGrid(gridSize, color) {
-  function randomColor() {
-    const generateRandomColor = () => Math.floor(Math.random() * 256);
-    
-    return `rgb(${generateRandomColor()}, ${generateRandomColor()}, ${generateRandomColor()})`
-  }
+let alpha = 0.1;
 
+function generateGrid(gridSize) {
   const gridContainer = document.createElement('div');
   gridContainer.id = 'grid-container';
 
@@ -16,13 +12,7 @@ function generateGrid(gridSize, color) {
       const gridSquare = document.createElement('div');
       
       gridSquare.classList.add('grid-square');
-      gridSquare.addEventListener('mouseover', () => {
-        gridSquare.style.backgroundColor = color === 'black'  ? '#000'
-                                         : color === 'random' ? randomColor()
-                                         : color === 'grayscale'   ? 'gray' // add grayscale
-                                         : 'black';
-
-      });
+      gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = 'black');
 
       gridRow.appendChild(gridSquare);
     }
@@ -83,7 +73,13 @@ function generateButtons() {
   
   grayscaleColorBtn.addEventListener('click', () => {
     [...document.querySelectorAll('.grid-square')].forEach(gridSquare => {
-      gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = 'gray');
+
+      gridSquare.addEventListener('mouseover', () => {
+        gridSquare.style.backgroundColor = `rgba(0,0,0, ${alpha})`
+
+        if (alpha >= .9999) alpha = 0;
+        alpha += 0.1;
+      });
     });
   });
 
@@ -93,8 +89,6 @@ function generateButtons() {
     while (!(Number(newGridSize) < 100 && Number(newGridSize) > 0) || Number(newGridSize) === 0 ) { 
       newGridSize = prompt('Please enter a number between 1 and 100');
     }
-
-
 
     deleteGrid();
     generateGrid(newGridSize, 'black');
@@ -110,4 +104,4 @@ function generateButtons() {
 }
 
 generateButtons();
-generateGrid(16, 'random');
+generateGrid(16);
