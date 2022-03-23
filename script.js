@@ -90,9 +90,11 @@ function generateButtons() {
   gridSizeBtn.addEventListener('click', () => {
     let newGridSize = prompt('How large is the new grid? Input a number between 1 and 100');
 
-    while (!Number(newGridSize) < 100 && !Number(newGridSize) > 0) { 
+    while (!(Number(newGridSize) < 100 && Number(newGridSize) > 0) || Number(newGridSize) === 0 ) { 
       newGridSize = prompt('Please enter a number between 1 and 100');
     }
+
+
 
     deleteGrid();
     generateGrid(newGridSize, 'black');
