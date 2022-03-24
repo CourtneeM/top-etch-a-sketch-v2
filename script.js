@@ -1,4 +1,4 @@
-let alpha = 0.1;
+const gridWidthHeight = 960;
 
 function generateGrid(gridSize) {
   const gridContainer = document.createElement('div');
@@ -12,6 +12,8 @@ function generateGrid(gridSize) {
       const gridSquare = document.createElement('div');
       
       gridSquare.classList.add('grid-square');
+      gridSquare.style.width = `${(gridWidthHeight / gridSize) - 2}px`;
+      gridSquare.style.height = `${(gridWidthHeight / gridSize) - 2}px`;
       gridSquare.addEventListener('mouseover', () => gridSquare.style.backgroundColor = 'black');
 
       gridRow.appendChild(gridSquare);
@@ -72,10 +74,10 @@ function generateButtons() {
   });
   
   grayscaleColorBtn.addEventListener('click', () => {
+    let alpha = 0.1;
     [...document.querySelectorAll('.grid-square')].forEach(gridSquare => {
-
       gridSquare.addEventListener('mouseover', () => {
-        gridSquare.style.backgroundColor = `rgba(0,0,0, ${alpha})`
+        gridSquare.style.backgroundColor = `rgba(0,0,0, ${alpha})`;
 
         if (alpha >= .9999) alpha = 0;
         alpha += 0.1;
